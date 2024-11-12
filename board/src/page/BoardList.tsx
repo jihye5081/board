@@ -1,16 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
 import { postingValue } from '../constant/postingvalue'
+import {useNavigate} from 'react-router-dom'
 
 export default function BoardList() {
+    const navigate = useNavigate();
+    function onClickElement(idx:number){
+        console.log(idx);
+        navigate("/detail", {state: {postIndex: idx}});
+    }
   return (
     <Wrapper>
         <Section>
             {
                 postingValue.map((el,idx)=>(
-                    <ListArticle>
-                        <ListIndex>{idx+1}.</ListIndex>
-                        <ListElement>{el.title}</ListElement>   
+                    <ListArticle key = 
+                    {`ListArticle${idx}`} onClick={() => onClickElement(idx)}>
+                        <ListIndex key = 
+                    {`ListIndex${idx}`}>{idx+1}.</ListIndex>          
+                        <ListElement key = 
+                    {`ListElement${idx}`}>{el.title}</ListElement>   
                     </ListArticle>
                 ))
             }
@@ -46,6 +55,7 @@ const ListIndex = styled.div`
     height: fit-content;
     padding: 8px 0;
 `
+
 const ListElement = styled.div`
     display: flex;
     width: 90%;
